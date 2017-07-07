@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SpotHTTP_Example' do
+  pod 'SpotHTTP', :path => '../'
+
+  target 'SpotHTTP_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
