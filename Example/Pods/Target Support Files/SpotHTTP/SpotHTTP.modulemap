@@ -1,0 +1,6 @@
+framework module SpotHTTP {
+  umbrella header "SpotHTTP-umbrella.h"
+
+  export *
+  module * { export * }
+}
