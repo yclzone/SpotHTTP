@@ -440,8 +440,7 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
         }
         
         if (self.printLog) {
-            NSLog(@"\n%@ \naction = %@, \nstatus: (%zd)%@, \nERROR = (%zd)%@: %@\n%@\n\n",
-                  kLogStartError, action, statusCode, statusCodeString, error.code, error.localizedDescription, error.userInfo, kLogEnd);
+            NSLog(@"\n%@ \naction = %@, \nstatus: (%zd)%@, \nERROR = (%zd)%@: %@\n%@\n\n", kLogStartError, action, statusCode, statusCodeString, error.code, error.localizedDescription, error.userInfo, kLogEnd);
         }
         
     } else { // 请求成功
@@ -506,8 +505,7 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
         }
         
         if (self.printLog) {
-            NSLog(@"\n%@ \naction = %@, \nresponseHeader: %@, \nresponseObject = \n%@\n%@\n\n",
-                  kLogStartResponse, action, headerJSONString, validResponseJSON, kLogEnd);
+            NSLog(@"\n%@ \naction = %@, \nresponseHeader: %@, \nresponseObject = \n%@\n%@\n\n", kLogStartResponse, action, headerJSONString, validResponseJSON, kLogEnd);
         }
         
     }
