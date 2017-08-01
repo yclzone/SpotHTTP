@@ -10,10 +10,3 @@
 #endif
 #endif
 
-#import "SpotFile.h"
-#import "SpotHTTP.h"
-#import "SpotHTTPManager.h"
-
-FOUNDATION_EXPORT double SpotHTTPVersionNumber;
-FOUNDATION_EXPORT const unsigned char SpotHTTPVersionString[];
-

@@ -14,8 +14,10 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - HYFoundation (0.6.0)
   - SpotHTTP (0.1.0):
     - AFNetworking (~> 3.0)
+    - HYFoundation
 
 DEPENDENCIES:
   - SpotHTTP (from `../`)
@@ -26,7 +28,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  SpotHTTP: 5fe91d6fb924daffc93a807b88534a78ede09545
+  HYFoundation: 7d3900389fff850d428c503141518da87255cb23
+  SpotHTTP: 65584ed135c61af7c2f26e991b99add873b7e2b5
 
 PODFILE CHECKSUM: ef3dc5163f049ab9f710f043b85cffec74d62846
 

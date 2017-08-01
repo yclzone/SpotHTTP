@@ -32,4 +32,5 @@ SpotHTTP - Based on AFNetworking, too!.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'AFNetworking', '~> 3.0'
+  s.dependency 'HYFoundation'
 end
