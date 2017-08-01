@@ -9,8 +9,6 @@
 #ifndef SpotHTTP_h
 #define SpotHTTP_h
 
-
-//#import "AFNetworking.h"
 #import "SpotHTTPManager.h"
 #import "SpotFile.h"
 
