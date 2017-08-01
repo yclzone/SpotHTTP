@@ -423,6 +423,9 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     
     NSInteger statusCode = httpResponse.statusCode;
     NSString *statusCodeString = [NSHTTPURLResponse localizedStringForStatusCode:statusCode];
+    if (statusCodeString) {
+        //
+    }
     
     
     if (error) { // 请求失败
@@ -444,6 +447,9 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     } else { // 请求成功
         
         NSString *headerJSONString = json2String(headerFields);
+        if (headerJSONString) {
+            //
+        }
         
         NSString *validResponseJSON = nil;
         id validResponseObject = nil;
