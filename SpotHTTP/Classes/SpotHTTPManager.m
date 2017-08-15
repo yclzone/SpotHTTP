@@ -58,7 +58,10 @@ static NSString * const kCacheResponseObject    = @"responseObject";
     return self;
 }
 
-
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field {
+    AFHTTPRequestSerializer *s = [self sharedSessionManager].requestSerializer;
+    [s setValue:value forHTTPHeaderField:field];
+}
 
 - (void)requestWithDomain:(NSString *)domain
                      path:(NSString *)path
@@ -80,9 +83,6 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     
     AFHTTPSessionManager *manager = [self sharedSessionManager];
     manager.requestSerializer.timeoutInterval = self.timeoutInterval;
-    NSSet *acceptableContentTypes = manager.responseSerializer.acceptableContentTypes;
-    manager.responseSerializer.acceptableContentTypes = [acceptableContentTypes setByAddingObjectsFromArray:@[@"text/html",
-                                                                                                              @"text/plain"]];
     
     NSString *baseURLString = [self baseURLWithDomain:domain path:path];
     
@@ -119,10 +119,9 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     }
     
     
-    NSString *fullRequestURLString = [self requestURLWithDomain:domain
+    NSString *fullRequestURLString = [self URLWithDomain:domain
                                                            path:path
                                                       parameter:fullParameters
-                                              requestSerializer:manager.requestSerializer
                                                        printLog:print];
     
     //    NSURLSessionTask *task = nil;
@@ -197,9 +196,10 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
                 [manager.requestSerializer setValue:@"multipart/form-data"
                                  forHTTPHeaderField:@"Content-Type"];
                 manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-                
-                manager.responseSerializer.acceptableContentTypes = [acceptableContentTypes setByAddingObjectsFromArray:@[@"text/html",
-                                                                                                                          @"text/plain"]];
+                NSSet *acceptableContentTypes = manager.responseSerializer.acceptableContentTypes;
+                acceptableContentTypes = [acceptableContentTypes setByAddingObjectsFromArray:@[@"text/html",
+                                                                                               @"text/plain"]];
+                manager.responseSerializer.acceptableContentTypes = acceptableContentTypes;
                 self.sessionTask = [manager POST:baseURLString parameters:fullParameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                     if (bodyHandler) {
                         NSArray *items = bodyHandler();
@@ -319,22 +319,28 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
 }
 
 
-#pragma mark - Tools
+#pragma mark - Private Methods
 
 - (AFHTTPSessionManager *)sharedSessionManager {
     static AFHTTPSessionManager *sessionManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sessionManager = [AFHTTPSessionManager manager];
+        NSSet *acceptableContentTypes = sessionManager.responseSerializer.acceptableContentTypes;
+        acceptableContentTypes = [acceptableContentTypes setByAddingObjectsFromArray:@[@"text/html",
+                                                                                       @"text/plain"]];
+        sessionManager.responseSerializer.acceptableContentTypes = acceptableContentTypes;
     });
     return sessionManager;
 }
 
-- (NSString *)baseURLWithDomain:(NSString *)domain path:(NSString *)path {
+- (NSString *)baseURLWithDomain:(NSString *)domain
+                           path:(NSString *)path {
     
     while ([domain hasSuffix:@"/"]) {
         domain = [domain substringToIndex:domain.length-1];
     }
+    self.domain = domain;
     
     while (![path hasPrefix:@"/"]) {
         path = [@"/" stringByAppendingString:path];
@@ -343,18 +349,15 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     while ([path hasSuffix:@"?"]) {
         path = [path substringToIndex:path.length-1];
     }
+    self.path = path;
     
     NSString *baseURLString = [NSString stringWithFormat:@"%@%@", domain, path];
     return baseURLString;
 }
 
-/**
- 打印请求URL
- */
-- (NSString *)requestURLWithDomain:(NSString *)domain
+- (NSString *)URLWithDomain:(NSString *)domain
                               path:(NSString *)path
                          parameter:(NSDictionary *)parameters
-                 requestSerializer:(AFHTTPRequestSerializer *)requestSerializer
                           printLog:(BOOL)print {
     
     //    NSArray *keys = [parameters allKeys];
@@ -375,7 +378,8 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     }
     
     if (print) {
-        NSLog(@"\n%@ 请求\naction = %@, \nrequestHeader = %@, \nURL = %@\n%@\n\n",
+        AFHTTPRequestSerializer *requestSerializer = [self sharedSessionManager].requestSerializer;
+        NSLog(@"\n%@ \naction = %@, \nrequestHeader = %@, \nURL = %@\n%@\n\n",
               kLogStartRequest, path, requestSerializer.HTTPRequestHeaders, requestURL, kLogEnd);
     }
     return requestURL;
@@ -409,6 +413,7 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     
     // 响应头
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)self.sessionTask.response;
+    NSLog(@"URL: %@", httpResponse.URL.absoluteString);
     
     // URL解码
     NSMutableDictionary *headerFields = httpResponse.allHeaderFields.mutableCopy;

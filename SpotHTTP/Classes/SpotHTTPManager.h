@@ -50,6 +50,8 @@ typedef NSArray<SpotFile *> * (^SpotConstructingBodyHandler)(void);
 + (instancetype)manager;
 + (instancetype)managerWithDomain:(NSString *)domain;
 
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field;
+
 - (void)requestWithDomain:(NSString *)domain
                      path:(NSString *)path
                    method:(SpotHTTPMethod)methodType
