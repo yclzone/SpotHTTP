@@ -1,6 +1,6 @@
 {
   "name": "SpotHTTP",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "summary": "SpotHTTP - Based on AFNetworking.",
   "description": "SpotHTTP - Based on AFNetworking, too!.",
   "homepage": "https://github.com/yclzone/SpotHTTP",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/yclzone/SpotHTTP.git",
-    "tag": "0.1.0"
+    "tag": "0.1.3"
   },
   "platforms": {
     "ios": "8.0"

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SpotHTTP'
-  s.version          = '0.1.0'
+  s.version          = '0.1.3'
   s.summary          = 'SpotHTTP - Based on AFNetworking.'
   s.description      = <<-DESC
 SpotHTTP - Based on AFNetworking, too!.

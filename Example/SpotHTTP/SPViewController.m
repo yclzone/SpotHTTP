@@ -31,14 +31,16 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     SpotHTTPManager *manager = [SpotHTTPManager manager];
     NSString *domain = @"http://www.weather.com.cn";
-    NSString *patch = @"/data/sk/101110101.html";
+    NSString *path = @"/data/sk/101110101.html";
+
+    NSDictionary *parameters = nil;
     
     [manager requestWithDomain:domain
-                          path:patch
+                          path:path
                         method:SpotHTTPMethodGET
               sharedParameters:nil
                       printLog:YES
-                    parameters:nil
+                    parameters:parameters
                      diskCache:YES
      constructingBodyWithBlock:nil
              completionHandler:^(NSDictionary *headerFields, id responseObject, NSError *networkError) {

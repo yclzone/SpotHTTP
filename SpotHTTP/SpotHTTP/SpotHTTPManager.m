@@ -58,7 +58,7 @@ static NSString * const kCacheResponseObject    = @"responseObject";
     return self;
 }
 
-- (void)setValue:(id)value forHTTPHeaderField:(NSString *)field {
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field {
     AFHTTPRequestSerializer *s = [self sharedSessionManager].requestSerializer;
     [s setValue:value forHTTPHeaderField:field];
 }
@@ -326,7 +326,6 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sessionManager = [AFHTTPSessionManager manager];
-        sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
         NSSet *acceptableContentTypes = sessionManager.responseSerializer.acceptableContentTypes;
         acceptableContentTypes = [acceptableContentTypes setByAddingObjectsFromArray:@[@"text/html",
                                                                                        @"text/plain"]];
@@ -414,7 +413,7 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     
     // 响应头
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)self.sessionTask.response;
-//    NSLog(@"URL: %@", httpResponse.URL.absoluteString);
+    NSLog(@"URL: %@", httpResponse.URL.absoluteString);
     
     // URL解码
     NSMutableDictionary *headerFields = httpResponse.allHeaderFields.mutableCopy;
@@ -517,6 +516,44 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
     }
 }
 
+//static NSString * methodNameWithMethod(SpotHTTPMethod methodType) {
+//    
+//    NSString *method = @"";
+//    switch (methodType) {
+//        case SpotHTTPMethodGET: {
+//            method = @"GET";
+//            break;
+//        }
+//        case SpotHTTPMethodPOST: {
+//            method = @"POST";
+//            break;
+//        }
+//        case SpotHTTPMethodPUT: {
+//            method = @"PUT";
+//            
+//            break;
+//        }
+//        case SpotHTTPMethodHEAD: {
+//            method = @"HEAD";
+//            
+//            break;
+//        }
+//        case SpotHTTPMethodPATCH: {
+//            method = @"PATCH";
+//            
+//            break;
+//        }
+//        case SpotHTTPMethodDELETE: {
+//            method = @"DELETE";
+//            
+//            break;
+//        }
+//        default:
+//            break;
+//    }
+//    
+//    return method;
+//}
 
 static NSString *json2String(id json) {
     // 转成JSON字符串, 用于打印（直接打印字典，中文需转码）

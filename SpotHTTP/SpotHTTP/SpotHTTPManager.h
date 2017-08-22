@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AFNetworking.h"
 
-@class SpotFile;
+@class SpotFile, AFHTTPSessionManager;
 
 typedef NS_ENUM(NSUInteger, SpotHTTPMethod) {
     SpotHTTPMethodGET = 0,
@@ -50,7 +51,9 @@ typedef NSArray<SpotFile *> * (^SpotConstructingBodyHandler)(void);
 + (instancetype)manager;
 + (instancetype)managerWithDomain:(NSString *)domain;
 
-- (void)setValue:(id)value forHTTPHeaderField:(NSString *)field;
+- (AFHTTPSessionManager *)sharedSessionManager;
+
+- (void)setValue:(NSString *)value forHTTPHeaderField:(NSString *)field;
 
 - (void)requestWithDomain:(NSString *)domain
                      path:(NSString *)path
