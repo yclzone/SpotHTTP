@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - HYFoundation (0.6.0)
-  - SpotHTTP (0.1.3):
+  - SpotHTTP (0.1.5):
     - AFNetworking (~> 3.0)
     - HYFoundation
 
@@ -29,8 +29,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   HYFoundation: 7d3900389fff850d428c503141518da87255cb23
-  SpotHTTP: c54f96c538968509db4aa040ed143d9401a9b464
+  SpotHTTP: 8af5baf596d44cb36fd85654bc4cca6c6e77d130
 
 PODFILE CHECKSUM: ef3dc5163f049ab9f710f043b85cffec74d62846
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.3.1
