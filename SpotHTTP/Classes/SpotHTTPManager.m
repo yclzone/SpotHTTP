@@ -224,7 +224,8 @@ constructingBodyWithBlock:(SpotConstructingBodyHandler)bodyHandler
                                      error:error];
                 }];
             } else {
-                
+                [manager.requestSerializer setValue:@"application/json;charset=UTF-8"
+                                 forHTTPHeaderField:@"Content-Type"];
                 self.sessionTask = [manager POST:baseURLString parameters:fullParameters progress:^(NSProgress * _Nonnull uploadProgress) {
                     
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
